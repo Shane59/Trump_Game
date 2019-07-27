@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * 変更点：
  * Chip の数をベットするのではなく、ポイントをいくら掛けるかという様に作っています。
@@ -11,41 +9,20 @@ public class Trump_Main {
         Card firstCard = game.draw();
         System.out.println(game.showCurrentCard(firstCard));
 
-        //here
-        //System.out.println("Betするチップの数を入力してください（半角1-20）");
-        Scanner scanner = new Scanner(System.in);
-        //boolean validChip = false;
-//        int bet = 0;
-//
-//        while(!validChip){
-//            String input = scanner.next();
-//            if(game.validateBet(input)){
-//                bet = Integer.parseInt(input);
-//                validChip = true;
-//            }
-//        }
+        int bet = game.getBet();
         int point = bet;
-        //here
 
         game.setScore(game.getScore()-bet);
 
         boolean play = true;
-        boolean validBigOrSmall = false;
         boolean win = false;
         while (play){
             System.out.println(game.showCurrentCard(firstCard));
-            System.out.println("Bigger[0] or Smaller[1] 選択");
-            int bigOrSmall = 0;
-            while (!validBigOrSmall){
-                String bigOrSmallInput = scanner.next();
-                if (game.validateInput(bigOrSmallInput, "Bigger[0] or Smaller[1] を入力してください！")){
-                    bigOrSmall = Integer.parseInt(bigOrSmallInput);
-                    validBigOrSmall = true;
-                }
-            }
+            int bigOrSmall = game.getBigOrSmallInput();
             Card card2 = game.draw();
 
             //Big
+            // TODO :: Use enum for Big vs Small
             if (bigOrSmall==0){
                 //win
                 game.showProcess(firstCard, card2, "Bigger", point);
@@ -75,18 +52,11 @@ public class Trump_Main {
                     }
                 }
             }
-            int cont = 0;
-            boolean contValid = false;
-            while (!contValid){
-                String contInput = scanner.next();
-                if (game.validateInput(contInput, "0:continue OR 1:not continue を入力してください！")){
-                    cont = Integer.parseInt(contInput);
-                    contValid = true;
-                }
-            }
+
+            // TODO :: Make this method return a boolean (ex. game.shouldContinueToNextRound())
+            int cont = game.getContInput();
             if (cont==0){
                 firstCard = card2;
-                validBigOrSmall = false;
                 if (!win) game.setScore(game.getScore()-bet);
                 continue;
             }

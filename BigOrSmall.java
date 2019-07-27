@@ -3,6 +3,7 @@ import java.util.*;
 public class BigOrSmall {
     private Chip chip = new Chip(0,0);
     private Trump trump = new Trump();
+    Scanner scanner = new Scanner(System.in);
 
     //private Card card = new Card();
 
@@ -124,6 +125,33 @@ public class BigOrSmall {
         return true;
     }
 
+    public int getBigOrSmallInput(){
+        System.out.println("Bigger[0] or Smaller[1] 選択");
+        int bigOrSmall = 0;
+        boolean validBigOrSmall = false;
+        while (!validBigOrSmall){
+            String bigOrSmallInput = scanner.next();
+            if (this.validateInput(bigOrSmallInput, "Bigger[0] or Smaller[1] を入力してください！")){
+                bigOrSmall = Integer.parseInt(bigOrSmallInput);
+                validBigOrSmall = true;
+            }
+        }
+        return bigOrSmall;
+    }
+
+    public int getContInput(){
+        int cont = 0;
+        boolean contValid = false;
+        while (!contValid){
+            String contInput = scanner.next();
+            if (this.validateInput(contInput, "0:continue OR 1:not continue を入力してください！")){
+                cont = Integer.parseInt(contInput);
+                contValid = true;
+            }
+        }
+        return cont;
+    }
+
     public boolean validateInput(String input, String message) {
         int bigOrSmall = 0;
         try{
@@ -158,7 +186,8 @@ public class BigOrSmall {
     }
 
     public int getBet(){
-        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Betするチップの数を入力してください（半角1-20）");
         boolean validChip = false;
         int bet = 0;
 

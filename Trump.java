@@ -39,7 +39,7 @@ public class Trump {
         return picked;
     }
 
-    public void reSet(){
+    public void reset(){
         this.deck = null;
         String[] suits = new String[]{"Heart", "Spade", "Diamond", "Club"};
         int cardNum = 0;
